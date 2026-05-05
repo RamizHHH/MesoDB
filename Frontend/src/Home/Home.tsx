@@ -172,21 +172,6 @@ function Home() {
             </div>
           </div>
         </div>
-
-        <div className="hero-specimen" aria-label="Featured database specimen">
-          <div className="specimen-card">
-            <span className="specimen-label">Featured fossil</span>
-            <div className="specimen-visual" aria-hidden="true">
-              <span className="spine" />
-              <span className="rib rib-one" />
-              <span className="rib rib-two" />
-              <span className="rib rib-three" />
-              <span className="skull" />
-            </div>
-            <h2>Specimen Archive</h2>
-            <p>Creature profiles will be loaded from your MesoDB backend.</p>
-          </div>
-        </div>
       </section>
 
       <section className="timeline-band" id="timeline" aria-labelledby="timeline-title">
