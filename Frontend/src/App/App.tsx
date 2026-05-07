@@ -1,11 +1,9 @@
-
-import './App.css'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Home from '../Home/Home'
-import Card from '../Card/Card'
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "../Home/Home";
+import Card from "../Card/Card";
 
 function App() {
-
   return (
     <>
       <Router>
@@ -15,7 +13,7 @@ function App() {
         </Routes>
       </Router>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
