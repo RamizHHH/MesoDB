@@ -30,7 +30,7 @@ function Card() {
   useEffect(() => {
     setLoading(true);
     fetch(
-      `http://localhost:8000/getCreature?query=${encodeURIComponent(
+      `https://mesodb.onrender.com/getCreature?query=${encodeURIComponent(
         creatureName ?? "",
       )}`,
     )
