@@ -1,5 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 import Home from "../Home/Home";
 import NavBar from "../Components/Navbar/NavBar";
 import Card from "../Components/Card/Card";
@@ -14,6 +15,7 @@ function App() {
           <Route path="/creature/:creatureName" element={<Card />} />
         </Routes>
       </Router>
+      <Analytics />
     </>
   );
 }
