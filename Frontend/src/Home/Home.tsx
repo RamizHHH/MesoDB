@@ -12,15 +12,12 @@ function Home() {
       return;
     } else {
       setSearchItem(String(searchItem).trim());
-      navigate(`/creature/${searchItem}`);
+      navigate(`/creature/${encodeURIComponent(searchItem)}`);
     }
   };
 
   return (
     <>
-      <nav className="nav">
-        <p id="mesodb_button">MesoDB</p>
-      </nav>
       <div className="title_subtitle">
         <h1 id="title">MesoDB</h1>
         <div className="subtitle_container">

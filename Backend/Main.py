@@ -24,10 +24,16 @@ supabase: Client = create_client(url, key)
 @app.get("/getCreature")
 def get_creature(query: str):
         if query:
-            response = supabase.from_('Dinosaurs').select('*').ilike('Name', f'%{query}%').execute()
-        else:
-            response = supabase.from_('Dinosaurs').select('*').execute()
-        return {"message": response.data}
 
+            response = supabase.from_('Dinosaurs').select('*').ilike('Name', f'%{query}%').execute()
+
+            if not response.data:
+                 response = supabase.from_('Dinosaurs').select('*').ilike('Scientific_Name', f'%{query}%').execute()
+
+        else:
+
+            response = supabase.from_('Dinosaurs').select('*').execute()
+
+        return {"message": response.data}
 
 
