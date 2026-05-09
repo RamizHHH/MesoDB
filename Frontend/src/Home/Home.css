@@ -54,33 +54,6 @@ h1 {
   min-width: 0;
 }
 
-#search_button {
-  margin-left: 0.95em;
-  padding: 0.5em 1em;
-  background-color: #347527;
-  color: white;
-  border: none;
-  border-radius: 1.5em;
-  font-size: 1.2em;
-  font-family:
-    "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans",
-    Arial, sans-serif;
-  flex: none;
-}
-
-#search_bar {
-  flex: 1;
-  width: 100%;
-  min-width: 0;
-  padding: 10px;
-  font-size: 1.2em;
-  font-family:
-    "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans",
-    Arial, sans-serif;
-  border: none;
-  border-radius: 1.5em;
-}
-
 @media (max-width: 768px) {
   .subtitle_container {
     width: 90%;
@@ -96,4 +69,59 @@ h1 {
   #search_button {
     margin-left: 0;
   }
+}
+
+.featured_dinos {
+  display: flex;
+  margin-top: 100px;
+}
+
+#featured_h2 {
+  color: white;
+  margin-left: 30px;
+  font-size: 3em;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.period_buttons {
+  margin-left: auto;
+  margin-right: 30px;
+}
+
+#Period_button {
+  border-radius: 10px;
+  margin: 10px;
+  padding: 10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1.1em;
+  background-color: hsl(170, 46%, 59%);
+  border: none;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+#Period_button:hover {
+  background-color: hsl(171, 52%, 66%);
+  transform: translateY(-1px);
+}
+
+#Period_button2 {
+  border-radius: 10px;
+  margin: 10px;
+  padding: 10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1.1em;
+  background-color: hsl(170, 46%, 59%);
+  border: none;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+
+  width: 60px;
+}
+
+#Period_button2:hover {
+  background-color: hsl(171, 52%, 66%);
+  transform: translateY(-1px);
 }

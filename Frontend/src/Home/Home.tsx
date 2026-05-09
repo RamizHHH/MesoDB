@@ -1,20 +1,10 @@
-import { useState, type FormEvent } from "react";
 import "./Home.css";
-import { useNavigate } from "react-router-dom";
+import SearchBar from "../Components/SearchBar/SearchBar";
+import { useState } from "react";
 
 function Home() {
-  const [searchItem, setSearchItem] = useState("");
-  const navigate = useNavigate();
-
-  const handleSearch = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (searchItem === "") {
-      return;
-    } else {
-      setSearchItem(String(searchItem).trim());
-      navigate(`/creature/${encodeURIComponent(searchItem)}`);
-    }
-  };
+  const [period, setPeriod] = useState("");
+  const [activeButton, setActiveButton] = useState("");
 
   return (
     <>
@@ -28,17 +18,62 @@ function Home() {
         </div>
       </div>
       <div className="search_bar_div">
-        <form className="search_form" onSubmit={handleSearch}>
-          <input
-            id="search_bar"
-            placeholder="T.rex, Triceratops, Velociraptor"
-            value={searchItem}
-            onChange={(event) => setSearchItem(event.target.value)}
-          ></input>
-          <button id="search_button" type="submit">
-            Search
+        <SearchBar />
+      </div>
+      <div className="featured_dinos">
+        <div className="featured_title">
+          <h2 id="featured_h2">Featured</h2>
+        </div>
+        <div className="period_buttons">
+          <button
+            id="Period_button2"
+            onClick={() => setActiveButton("All")}
+            style={{
+              backgroundColor:
+                activeButton === "All"
+                  ? "hsl(170, 46%, 30%)"
+                  : "hsl(170, 46%, 59%)",
+            }}
+          >
+            All
           </button>
-        </form>
+          <button
+            id="Period_button"
+            onClick={() => setActiveButton("Triassic")}
+            style={{
+              backgroundColor:
+                activeButton === "Triassic"
+                  ? "hsl(170, 46%, 30%)"
+                  : "hsl(170, 46%, 59%)",
+            }}
+          >
+            Triassic
+          </button>
+          <button
+            id="Period_button"
+            onClick={() => setActiveButton("Jurassic")}
+            style={{
+              backgroundColor:
+                activeButton === "Jurassic"
+                  ? "hsl(170, 46%, 30%)"
+                  : "hsl(170, 46%, 59%)",
+            }}
+          >
+            Jurassic
+          </button>
+          <button
+            id="Period_button"
+            onClick={() => setActiveButton("Cretaceous")}
+            style={{
+              backgroundColor:
+                activeButton === "Cretaceous"
+                  ? "hsl(170, 46%, 30%)"
+                  : "hsl(170, 46%, 59%)",
+            }}
+          >
+            Cretaceous
+          </button>
+        </div>
       </div>
     </>
   );

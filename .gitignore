@@ -1,1 +1,4 @@
 Backend/.env
+Frontend/.env
+Frontend/.env.development
+Frontend/.env.production

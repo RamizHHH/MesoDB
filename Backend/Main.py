@@ -6,7 +6,10 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-origins = "https://mesodb.vercel.app/"
+origins = [
+    "https://mesodb.vercel.app", 
+    "http://localhost:5173"
+]
 
 app.add_middleware(
     CORSMiddleware,
@@ -35,5 +38,4 @@ def get_creature(query: str):
             response = supabase.from_('Dinosaurs').select('*').execute()
 
         return {"message": response.data}
-
 

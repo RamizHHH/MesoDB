@@ -26,14 +26,11 @@ function Card() {
   const [loading, setLoading] = useState(true);
   const creature = data[0];
   const navigate = useNavigate();
+  const API = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     setLoading(true);
-    fetch(
-      `https://mesodb.onrender.com/getCreature?query=${encodeURIComponent(
-        creatureName ?? "",
-      )}`,
-    )
+    fetch(`${API}/getCreature?query=${encodeURIComponent(creatureName ?? "")}`)
       .then((response) => response.json())
       .then((data: CreatureResponse) => {
         setData(data.message ?? []);
@@ -133,7 +130,7 @@ function Card() {
               <p id="era_p">Length: {creature.Length}</p>
             </div>
             <div className="era_div">
-              <p id="era_p">Length: {creature.Weight}</p>
+              <p id="era_p">Weight: {creature.Weight}</p>
             </div>
           </div>
           <div className="summary_div">
