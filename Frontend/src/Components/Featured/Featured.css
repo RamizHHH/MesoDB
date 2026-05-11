@@ -1,0 +1,85 @@
+.featured_dinos {
+  width: min(100% - 2rem, 1100px);
+  margin: 100px auto 40px;
+}
+
+.featured_title {
+  display: flex;
+  justify-content: center;
+}
+
+#featured_h2 {
+  color: white;
+  margin: 0;
+  font-size: 3em;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.period_buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.period_button {
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1.05em;
+  background-color: hsl(170, 46%, 59%);
+  color: #10212d;
+  border: none;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.period_button:hover,
+.active_period_button {
+  background-color: hsl(170, 46%, 30%);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.Featured_cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  width: 100%;
+  margin-top: 32px;
+}
+
+.card_id {
+  min-height: 150px;
+  padding: 20px;
+  background-color: #26384a;
+  border-left: 10px solid teal;
+  border-radius: 10px;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18);
+}
+
+.featured_creature_name {
+  color: white;
+  margin: 0;
+  font-size: 1.5em;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.featured_creature_period {
+  color: #d7e2ea;
+  margin: 12px 0 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+@media (max-width: 600px) {
+  #featured_h2 {
+    font-size: 2.4em;
+  }
+
+  .Featured_cards {
+    grid-template-columns: 1fr;
+  }
+}
