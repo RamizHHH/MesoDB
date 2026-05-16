@@ -156,6 +156,83 @@ body {
   overflow-wrap: anywhere;
 }
 
+.skeleton_block {
+  position: relative;
+  overflow: hidden;
+  background-color: #34485d;
+  border-radius: 8px;
+}
+
+.skeleton_block::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.18),
+    transparent
+  );
+  animation: skeleton_shimmer 1.4s infinite;
+}
+
+.skeleton_image {
+  width: 90%;
+  aspect-ratio: 4 / 3;
+  border: 6px solid #1b2432;
+  border-radius: 10px;
+}
+
+.skeleton_title {
+  width: min(70%, 520px);
+  height: 4.8rem;
+  margin-bottom: 18px;
+}
+
+.skeleton_subtitle {
+  width: min(50%, 360px);
+  height: 2.4rem;
+  margin-bottom: 60px;
+}
+
+.skeleton_stat {
+  border-color: #67c7b7;
+}
+
+.skeleton_stat_text {
+  width: 75%;
+  height: 1.2rem;
+}
+
+.skeleton_summary {
+  padding: 18px;
+}
+
+.skeleton_summary_heading {
+  width: 120px;
+  height: 1.5rem;
+  margin-bottom: 18px;
+  background-color: #cbdbe3;
+}
+
+.skeleton_summary_line {
+  width: 100%;
+  height: 1rem;
+  margin-bottom: 12px;
+  background-color: #cbdbe3;
+}
+
+.skeleton_summary_line.short {
+  width: 68%;
+}
+
+@keyframes skeleton_shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 .loading_div {
   height: 100vh;
 

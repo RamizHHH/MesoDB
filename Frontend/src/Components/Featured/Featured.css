@@ -50,6 +50,7 @@
   gap: 18px;
   width: 100%;
   margin-top: 32px;
+  cursor: pointer;
 }
 
 .card_id {
@@ -59,6 +60,12 @@
   border-left: 10px solid teal;
   border-radius: 10px;
   box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18);
+}
+
+.card_id:hover {
+  border-color: #67c7b7;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+  transform: translateY(-2px);
 }
 
 .featured_creature_name {
@@ -82,4 +89,9 @@
   .Featured_cards {
     grid-template-columns: 1fr;
   }
+}
+
+.featured_creature_summary {
+  margin-top: 12px;
+  font-family: lato, sans-serif;
 }

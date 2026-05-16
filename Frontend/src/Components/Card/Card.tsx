@@ -64,9 +64,42 @@ function Card() {
   if (loading) {
     return (
       <>
-        <div className="loading_div">
-          <p id="loading_p">Loading creature...</p>
+        <div className="creature-info">
+          <div className="creature-image">
+            <div className="skeleton_block skeleton_image"></div>
+          </div>
+          <div className="creature-details">
+            <div className="skeleton_block skeleton_title"></div>
+            <div className="skeleton_block skeleton_subtitle"></div>
+            <div className="creature-stats-grid">
+              <div className="era_div skeleton_stat">
+                <div className="skeleton_block skeleton_stat_text"></div>
+              </div>
+              <div className="era_div skeleton_stat">
+                <div className="skeleton_block skeleton_stat_text"></div>
+              </div>
+              <div className="era_div skeleton_stat">
+                <div className="skeleton_block skeleton_stat_text"></div>
+              </div>
+              <div className="era_div skeleton_stat">
+                <div className="skeleton_block skeleton_stat_text"></div>
+              </div>
+              <div className="era_div skeleton_stat">
+                <div className="skeleton_block skeleton_stat_text"></div>
+              </div>
+            </div>
+            <div className="summary_div skeleton_summary">
+              <div className="skeleton_block skeleton_summary_heading"></div>
+              <div className="skeleton_block skeleton_summary_line"></div>
+              <div className="skeleton_block skeleton_summary_line"></div>
+              <div className="skeleton_block skeleton_summary_line short"></div>
+            </div>
+          </div>
         </div>
+        <p id="image_disc">
+          All Images Used Are Not My Own and Are Property of Their Respective
+          Owners
+        </p>
       </>
     );
   }

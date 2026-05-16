@@ -3,6 +3,7 @@ from supabase import create_client, Client
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import uvicorn
 
 app = FastAPI()
 
@@ -38,4 +39,7 @@ def get_creature(query: str):
             response = supabase.from_('Dinosaurs').select('*').execute()
 
         return {"message": response.data}
+
+if __name__ == "__main__":
+    uvicorn.run("Main:app", host="0.0.0.0", port=8000, reload=True)
 

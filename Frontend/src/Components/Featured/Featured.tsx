@@ -1,5 +1,6 @@
 import "./Featured.css";
 import { useState, useEffect, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 
 type Creature = {
   id: string;
@@ -19,10 +20,11 @@ type CreatureResponse = {
 };
 
 function Featured() {
-  const [activeButton, setActiveButton] = useState("");
+  const [activeButton, setActiveButton] = useState("All");
   const [data, setData] = useState<Creature[]>([]);
   const API = import.meta.env.VITE_API_URL;
   const today = new Date().toISOString().slice(0, 10);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`${API}/getCreature?query=`)
@@ -39,19 +41,30 @@ function Featured() {
   const featuredCreatures = useMemo(() => {
     if (!data.length) return [];
 
-    const count = Math.min(3, data.length);
-    const indexes = new Set<number>();
-    let seed = today
-      .split("")
-      .reduce((total, char) => total + char.charCodeAt(0), 0);
+    const periods = ["Triassic", "Jurassic", "Cretaceous"];
+    let seed =
+      today.split("").reduce((total, char) => total + char.charCodeAt(0), 0) +
+      data.length;
 
-    while (indexes.size < count) {
-      seed = (seed * 9301 + 49297) % 233280;
-      indexes.add(seed % data.length);
-    }
+    return periods
+      .map((period) => {
+        const creaturesInPeriod = data.filter((creature) =>
+          creature.Period?.includes(period),
+        );
 
-    return Array.from(indexes).map((index) => data[index]);
+        if (!creaturesInPeriod.length) {
+          return undefined;
+        }
+
+        seed = (seed * 9301 + 49297) % 233280;
+        return creaturesInPeriod[seed % creaturesInPeriod.length];
+      })
+      .filter((creature): creature is Creature => Boolean(creature));
   }, [data, today]);
+
+  const handleClick = (creatureName: string) => {
+    navigate(`/creature/${encodeURIComponent(creatureName)}`);
+  };
 
   return (
     <>
@@ -114,9 +127,16 @@ function Featured() {
         <div className="Featured_cards">
           {activeButton === "All"
             ? featuredCreatures.map((creature) => (
-                <article className="card_id" key={creature.id}>
+                <article
+                  className="card_id"
+                  key={creature.id}
+                  onClick={() => handleClick(creature.Name)}
+                >
                   <h3 className="featured_creature_name">{creature.Name}</h3>
                   <p className="featured_creature_period">{creature.Period}</p>
+                  <p className="featured_creature_summary">
+                    {creature.Summary}
+                  </p>
                 </article>
               ))
             : ""}
@@ -124,10 +144,17 @@ function Featured() {
             ? featuredCreatures
                 .filter((creature) => creature.Period === "Triassic")
                 .map((creature) => (
-                  <article className="card_id" key={creature.id}>
+                  <article
+                    className="card_id"
+                    key={creature.id}
+                    onClick={() => handleClick(creature.Name)}
+                  >
                     <h3 className="featured_creature_name">{creature.Name}</h3>
                     <p className="featured_creature_period">
                       {creature.Period}
+                    </p>
+                    <p className="featured_creature_summary">
+                      {creature.Summary}
                     </p>
                   </article>
                 ))
@@ -136,10 +163,17 @@ function Featured() {
             ? featuredCreatures
                 .filter((creature) => creature.Period === "Jurassic")
                 .map((creature) => (
-                  <article className="card_id" key={creature.id}>
+                  <article
+                    className="card_id"
+                    key={creature.id}
+                    onClick={() => handleClick(creature.Name)}
+                  >
                     <h3 className="featured_creature_name">{creature.Name}</h3>
                     <p className="featured_creature_period">
                       {creature.Period}
+                    </p>
+                    <p className="featured_creature_summary">
+                      {creature.Summary}
                     </p>
                   </article>
                 ))
@@ -148,10 +182,17 @@ function Featured() {
             ? featuredCreatures
                 .filter((creature) => creature.Period === "Cretaceous")
                 .map((creature) => (
-                  <article className="card_id" key={creature.id}>
+                  <article
+                    className="card_id"
+                    key={creature.id}
+                    onClick={() => handleClick(creature.Name)}
+                  >
                     <h3 className="featured_creature_name">{creature.Name}</h3>
                     <p className="featured_creature_period">
                       {creature.Period}
+                    </p>
+                    <p className="featured_creature_summary">
+                      {creature.Summary}
                     </p>
                   </article>
                 ))
