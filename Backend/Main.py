@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
+from pydantic import BaseModel
 import uvicorn
 import google.genai as genai
 
@@ -32,6 +33,16 @@ service_role_key = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
 client = genai.Client()
 supabase: Client = create_client(url, key)
 supabase2 = create_client(url, service_role_key)
+
+
+class ChatMessage(BaseModel):
+    role: str
+    content: str
+
+
+class CreatureAIChatRequest(BaseModel):
+    creatureName: str = ""
+    messages: list[ChatMessage]
 
 @app.get("/getCreature")
 def get_creature(query: str = ""):
@@ -150,6 +161,50 @@ def stream_ai_summary(dino):
     except Exception as error:
         print("Error streaming AI summary:", error)
         yield "Could not generate AI summary. Try again later."
+
+
+@app.post("/CreatureAIChat")
+def creature_ai_chat(request: CreatureAIChatRequest):
+    if not request.messages:
+        return {"message": "Ask me a dinosaur question and I can help."}
+    
+    response = supabase.from_('Dinosaurs').select('*').ilike('Name', f'%{request.creatureName}%').execute()
+    dino = response.data[0] if response.data else None
+
+    conversation = "\n".join(
+        f"{message.role}: {message.content}" for message in request.messages[-8:]
+    )
+
+    prompt = f"""
+        You are MesoDB AI, a friendly paleontology assistant.
+
+        Answer questions about dinosaurs, prehistoric creatures, fossil evidence,
+        time periods, diets, habitats, and behavior. Keep answers helpful,
+        accurate, and easy to understand. Do not use markdown formatting.
+        This is the dino we have
+
+        Dinosaur:
+        Name: {dino.get("Name")}
+        Scientific Name: {dino.get("Scientific_Name")}
+        Period: {dino.get("Period")}
+        Diet: {dino.get("Diet")}
+        Length: {dino.get("Length")}
+        Weight: {dino.get("Weight")}
+        Existing Summary: {dino.get("Summary")}
+
+        Conversation:
+        {conversation}
+    """
+
+    try:
+        response = client.models.generate_content(
+            model="gemini-3.1-flash-lite",
+            contents=prompt,
+        )
+        return {"message": response.text}
+    except Exception as error:
+        print("Error in CreatureAIChat:", error)
+        return {"message": "I could not answer right now. Try again later."}
 
 
 
