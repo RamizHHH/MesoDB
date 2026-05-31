@@ -1,6 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
 import "./Card.css";
 import { useEffect, useState } from "react";
+import ChatBox from "../ChatBox/ChatBox";
+import { getAuthHeaders } from "../../Auth/Auth";
 
 type Creature = {
   id: string;
@@ -72,7 +74,15 @@ function Card() {
         `${API}/AISummaryStream?query=${encodeURIComponent(
           creature.Name ?? creatureName ?? "",
         )}`,
+        {
+          headers: getAuthHeaders(),
+        },
       );
+
+      if (!response.ok) {
+        setAIData("Log in with Google to use AI summaries.");
+        return;
+      }
 
       if (!response.body) {
         throw new Error("Streaming is not supported by this browser.");
@@ -216,28 +226,34 @@ function Card() {
         </div>
       </div>
 
-      <div className="ai_summary_div">
-        <button
-          id="ai_summary_button"
-          onClick={handleAISummary}
-          disabled={isAIStreaming}
-        >
-          {isAIStreaming ? "Generating..." : "Generate Larger AI Summary"}
-        </button>
-        {AIData !== "" || isAIStreaming ? (
-          <>
-            <div className="ai_summary_result">
+      <div className="ai_tools_grid">
+        <div className="ai_summary_div">
+          <button
+            id="ai_summary_button"
+            onClick={handleAISummary}
+            disabled={isAIStreaming}
+          >
+            {isAIStreaming ? "Generating..." : "Generate Larger AI Summary"}
+          </button>
+          {AIData !== "" || isAIStreaming ? (
+            <>
+              <div className="ai_summary_result">
+                <p id="ai_summary_placeholder">
+                  {AIData}
+                  {isAIStreaming ? <span className="ai_cursor"></span> : ""}
+                </p>
+              </div>
+            </>
+          ) : (
+            <div className="ai_summary_result ai_summary_empty">
               <p id="ai_summary_placeholder">
-                {AIData}
-                {isAIStreaming ? <span className="ai_cursor"></span> : ""}
+                Generate a larger AI summary to see more details here.
               </p>
             </div>
-          </>
-        ) : (
-          ""
-        )}
+          )}
+        </div>
+        <ChatBox />
       </div>
-
       <p id="image_disc">
         All Images Used Are Not My Own and Are Property of Their Respective
         Owners
