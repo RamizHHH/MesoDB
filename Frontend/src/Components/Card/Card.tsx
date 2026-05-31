@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import "./Card.css";
 import { useEffect, useState } from "react";
 import ChatBox from "../ChatBox/ChatBox";
+import { getAuthHeaders } from "../../Auth/Auth";
 
 type Creature = {
   id: string;
@@ -73,7 +74,15 @@ function Card() {
         `${API}/AISummaryStream?query=${encodeURIComponent(
           creature.Name ?? creatureName ?? "",
         )}`,
+        {
+          headers: getAuthHeaders(),
+        },
       );
+
+      if (!response.ok) {
+        setAIData("Log in with Google to use AI summaries.");
+        return;
+      }
 
       if (!response.body) {
         throw new Error("Streaming is not supported by this browser.");

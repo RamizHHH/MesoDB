@@ -1,6 +1,7 @@
 import "./ChatBox.css";
 import { useState, type FormEvent } from "react";
 import { useParams } from "react-router-dom";
+import { getAuthHeaders } from "../../Auth/Auth";
 
 type Message = {
   role: "user" | "assistant";
@@ -44,7 +45,10 @@ function ChatBox() {
     try {
       const result = await fetch(`${API}/CreatureAIChat`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...getAuthHeaders(),
+        },
         body: JSON.stringify({
           creatureName: creatureName ?? "",
           messages: nextMessages,
