@@ -1,0 +1,60 @@
+.related_dinos {
+  background-color: #212f3f;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  border-radius: 16px;
+  padding: 24px;
+  gap: 16px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+  max-width: 520px;
+  width: 100%;
+}
+
+#related_dinos_h2 {
+  color: #f5f7fb;
+  align-self: center;
+  margin: 0;
+  font-size: 1.25rem;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+.related_dino_card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: #26384a;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 18px 16px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.related_dino_card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.14);
+  background-color: #2f4660;
+}
+
+#dino_name_h3 {
+  color: #eef2f8;
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.related_dino_card:hover #dino_name_h3 {
+  color: #c7d6ee;
+  cursor: pointer;
+}
+
+#dino_family_p {
+  color: #a0b0c8;
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+}

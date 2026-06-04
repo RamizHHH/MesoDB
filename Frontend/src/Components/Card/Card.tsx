@@ -1,8 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import "./Card.css";
 import { useEffect, useState } from "react";
-import ChatBox from "../ChatBox/ChatBox";
-import { getAuthHeaders } from "../../Auth/Auth";
+import Related from "../Related/Related";
 
 type Creature = {
   id: string;
@@ -15,6 +14,7 @@ type Creature = {
   Weight?: string | null;
   Image_URL?: string | null;
   Summary?: string | null;
+  Family?: string | null;
 };
 
 type CreatureResponse = {
@@ -25,7 +25,7 @@ function Card() {
   const { creatureName } = useParams<{ creatureName: string }>();
   const [data, setData] = useState<Creature[]>([]);
   const [AIData, setAIData] = useState<string>("");
-  const [isAIStreaming, setIsAIStreaming] = useState(false);
+  const [isAILoading, setIsAILoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(true);
   const creature = data[0];
@@ -67,44 +67,27 @@ function Card() {
 
   async function handleAISummary() {
     setAIData("");
-    setIsAIStreaming(true);
+    setIsAILoading(true);
 
     try {
       const response = await fetch(
-        `${API}/AISummaryStream?query=${encodeURIComponent(
+        `${API}/AISummary?query=${encodeURIComponent(
           creature.Name ?? creatureName ?? "",
         )}`,
-        {
-          headers: getAuthHeaders(),
-        },
       );
 
       if (!response.ok) {
-        setAIData("Log in with Google to use AI summaries.");
+        setAIData("Could not fetch AI summary. Try again later.");
         return;
       }
 
-      if (!response.body) {
-        throw new Error("Streaming is not supported by this browser.");
-      }
-
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
-
-      while (true) {
-        const { done, value } = await reader.read();
-
-        if (done) {
-          break;
-        }
-
-        setAIData((currentText) => currentText + decoder.decode(value));
-      }
+      const data = await response.json();
+      setAIData(data.message ?? "Could not fetch AI summary. Try again later.");
     } catch (error) {
       console.error("Error fetching AI summary:", error);
       setAIData("Could not fetch AI summary. Try again later.");
     } finally {
-      setIsAIStreaming(false);
+      setIsAILoading(false);
     }
   }
 
@@ -218,6 +201,9 @@ function Card() {
             <div className="era_div">
               <p id="era_p">Weight: {creature.Weight ?? "Unknown"}</p>
             </div>
+            <div className="era_div">
+              <p id="era_p">Family: {creature.Family ?? "Unknown"}</p>
+            </div>
           </div>
           <div className="summary_div">
             <h3 id="summary_h3">Summary</h3>
@@ -231,16 +217,15 @@ function Card() {
           <button
             id="ai_summary_button"
             onClick={handleAISummary}
-            disabled={isAIStreaming}
+            disabled={isAILoading}
           >
-            {isAIStreaming ? "Generating..." : "Generate Larger AI Summary"}
+            {isAILoading ? "Generating..." : "Generate Larger AI Summary"}
           </button>
-          {AIData !== "" || isAIStreaming ? (
+          {AIData !== "" || isAILoading ? (
             <>
               <div className="ai_summary_result">
                 <p id="ai_summary_placeholder">
-                  {AIData}
-                  {isAIStreaming ? <span className="ai_cursor"></span> : ""}
+                  {isAILoading ? "Generating summary..." : AIData}
                 </p>
               </div>
             </>
@@ -252,7 +237,10 @@ function Card() {
             </div>
           )}
         </div>
-        <ChatBox />
+        <Related
+          family={creature.Family ?? ""}
+          creatureName={creature.Name ?? ""}
+        />
       </div>
       <p id="image_disc">
         All Images Used Are Not My Own and Are Property of Their Respective
