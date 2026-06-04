@@ -4,24 +4,21 @@ MesoDB is a prehistoric creature database for exploring dinosaurs, marine reptil
 
 Live site: https://mesodb.vercel.app
 
-The app includes searchable creature pages, featured daily creatures, Google login, profile information, and AI-assisted creature explanations with per-account daily usage limits.
+The app includes searchable creature pages, featured daily creatures, and AI-assisted creature explanations.
 
 ## Features
 
 - Search prehistoric creatures by common or scientific name
 - View creature pages with image, taxonomy-style stats, and summaries
 - Daily featured creatures selected from each major period
-- Google authentication through Supabase
-- Profile page with account text info and daily AI usage count
-- AI summary and AI chat tools for signed-in users
-- 10 AI uses per account per day
+- AI summary and AI chat tools
 - Responsive layout for desktop and mobile
 
 ## Tech Stack
 
 - Frontend: React, TypeScript, Vite, React Router
 - Backend: FastAPI, Python
-- Database and auth: Supabase
+- Database: Supabase
 - AI: Google Gemini
 - Hosting: Vercel for frontend, Render for backend
 

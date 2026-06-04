@@ -8,14 +8,6 @@ function NavBar() {
     navigate(`/`);
   };
 
-  const handleAuthClick = () => {
-    navigate(`/login`);
-  };
-
-  const handleProfileClick = () => {
-    navigate(`/profile`);
-  };
-
   return (
     <>
       <nav className="nav">
@@ -27,12 +19,6 @@ function NavBar() {
         />
         <p id="mesodb_button" onClick={handleClick}>
           MesoDB
-        </p>
-        <p id="login_button" onClick={handleAuthClick}>
-          Login
-        </p>
-        <p id="profile_button" onClick={handleProfileClick}>
-          Profile
         </p>
       </nav>
     </>
