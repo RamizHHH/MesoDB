@@ -2,8 +2,6 @@
 
 MesoDB is a prehistoric creature database for exploring dinosaurs, marine reptiles, pterosaurs, and early mammals from the Triassic, Jurassic, and Cretaceous periods.
 
-Live site: https://mesodb.vercel.app
-
 The app includes searchable creature pages, featured daily creatures, and AI-assisted creature explanations.
 
 ## Features
