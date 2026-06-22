@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "./Card.css";
 import { useEffect, useState } from "react";
 import Related from "../Related/Related";
@@ -23,22 +23,35 @@ type CreatureResponse = {
 
 function Card() {
   const { creatureName } = useParams<{ creatureName: string }>();
+  const location = useLocation();
+  const initialCreature = (
+    location.state as { previousCreature?: Creature | null } | null
+  )?.previousCreature;
+  const initialCreatureName = initialCreature?.Name ?? "";
   const [data, setData] = useState<Creature[]>([]);
   const [AIData, setAIData] = useState<string>("");
   const [isAILoading, setIsAILoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!initialCreature);
+  const [hasFetchedCurrentCreature, setHasFetchedCurrentCreature] =
+    useState(false);
   const creature = data[0];
   const navigate = useNavigate();
   const API = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
-    setLoading(true);
+    if (!initialCreature) {
+      setLoading(true);
+    }
+    setAIData("");
+    setIsAILoading(false);
+    setHasFetchedCurrentCreature(false);
     fetch(`${API}/getCreature?query=${encodeURIComponent(creatureName ?? "")}`)
       .then((response) => response.json())
       .then((data: CreatureResponse) => {
         setData(data.message ?? []);
         setErrorMessage("");
+        setHasFetchedCurrentCreature(true);
       })
       .catch((error) => {
         console.error("Error fetching creature data:", error);
@@ -46,24 +59,48 @@ function Card() {
           "Could not load this creature. Check that the backend is running.",
         );
         setData([]);
+        setHasFetchedCurrentCreature(true);
       })
       .finally(() => {
         setLoading(false);
       });
-  }, [API, creatureName]);
+  }, [API, creatureName, initialCreature]);
 
   useEffect(() => {
-    if (
+    if (initialCreature && !data.length) {
+      setData([initialCreature]);
+    }
+  }, [initialCreature, data.length]);
+
+  useEffect(() => {
+    if (creatureName) {
+      setAIData("");
+      setIsAILoading(false);
+    }
+  }, [creatureName]);
+
+  useEffect(() => {
+    const shouldRedirect =
+      hasFetchedCurrentCreature &&
       !loading &&
       creature &&
       creature.Name &&
-      creature.Name !== creatureName
-    ) {
+      creature.Name !== creatureName &&
+      creature.Name !== initialCreatureName;
+
+    if (shouldRedirect) {
       navigate(`/creature/${encodeURIComponent(creature.Name)}`, {
         replace: true,
       });
     }
-  }, [loading, creature, creatureName, navigate]);
+  }, [
+    loading,
+    creature,
+    creatureName,
+    navigate,
+    hasFetchedCurrentCreature,
+    initialCreatureName,
+  ]);
 
   async function handleAISummary() {
     setAIData("");
@@ -240,6 +277,7 @@ function Card() {
         <Related
           family={creature.Family ?? ""}
           creatureName={creature.Name ?? ""}
+          currentCreature={creature}
         />
       </div>
       <p id="image_disc">

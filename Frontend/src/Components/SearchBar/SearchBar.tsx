@@ -41,7 +41,9 @@ function SearchBar() {
   }
 
   function handleResultClick(creatureName: string) {
-    navigate(`/creature/${encodeURIComponent(creatureName)}`);
+    navigate(`/creature/${encodeURIComponent(creatureName)}`, {
+      preventScrollReset: true,
+    });
   }
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -53,7 +55,9 @@ function SearchBar() {
       return;
     }
 
-    navigate(`/creature/${encodeURIComponent(trimmedQuery)}`);
+    navigate(`/creature/${encodeURIComponent(trimmedQuery)}`, {
+      preventScrollReset: true,
+    });
   }
 
   return (
@@ -69,12 +73,13 @@ function SearchBar() {
           <button type="submit">Search</button>
         </form>
 
-        <div className="dropdown">
+        <div className="dropdown" role="listbox" aria-label="Creature results">
           {results.map((dino) => (
             <div key={dino.id} className="dropdown_item">
               <button
                 type="button"
                 onClick={() => handleResultClick(dino.Name)}
+                aria-label={`Open ${dino.Name}`}
               >
                 {dino.Name}
               </button>
