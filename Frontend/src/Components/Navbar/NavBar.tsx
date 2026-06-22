@@ -11,12 +11,6 @@ function NavBar() {
   return (
     <>
       <nav className="nav">
-        <img
-          src="/MesoDB_Favicon.png"
-          alt="MesoDB Logo"
-          className="logo"
-          onClick={handleClick}
-        />
         <p id="mesodb_button" onClick={handleClick}>
           MesoDB
         </p>

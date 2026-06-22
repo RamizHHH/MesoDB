@@ -1,97 +1,121 @@
 .featured_dinos {
-  width: min(100% - 2rem, 1100px);
-  margin: 100px auto 40px;
+  width: 100%;
 }
 
 .featured_title {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: end;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 #featured_h2 {
-  color: white;
   margin: 0;
-  font-size: 3em;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  color: #f5f7fb;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  letter-spacing: -0.03em;
+  font-family:
+    "Cairo",
+    "Gill Sans",
+    "Gill Sans MT",
+    Calibri,
+    "Trebuchet MS" sans-serif;
 }
 
 .period_buttons {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 24px;
+  gap: 0.75rem;
 }
 
 .period_button {
-  border-radius: 10px;
-  padding: 10px 16px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 1.05em;
-  background-color: hsl(170, 46%, 59%);
+  padding: 0.8rem 1.1rem;
+  border: 1px solid rgba(193, 208, 223, 0.12);
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 700;
   color: #10212d;
-  border: none;
+  background: linear-gradient(180deg, #89ded0 0%, #67c7b7 100%);
   cursor: pointer;
   transition:
-    background-color 0.2s ease,
-    transform 0.2s ease;
+    transform 0.2s ease,
+    filter 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .period_button:hover,
 .active_period_button {
-  background-color: hsl(170, 46%, 30%);
-  color: white;
   transform: translateY(-1px);
+  filter: brightness(0.98);
+}
+
+.period_button:focus-visible {
+  outline: 2px solid rgba(137, 222, 208, 0.85);
+  outline-offset: 2px;
 }
 
 .Featured_cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
   width: 100%;
-  margin-top: 32px;
-  cursor: pointer;
+  margin-top: 1.5rem;
 }
 
 .card_id {
-  min-height: 150px;
-  padding: 20px;
-  background-color: #26384a;
-  border-left: 10px solid teal;
-  border-radius: 10px;
-  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18);
+  min-height: 190px;
+  padding: 1.25rem;
+  background: rgba(38, 56, 74, 0.9);
+  border: 1px solid rgba(193, 208, 223, 0.12);
+  border-radius: 18px;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .card_id:hover {
-  border-color: #67c7b7;
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
-  transform: translateY(-2px);
+  border-color: rgba(103, 199, 183, 0.45);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.22);
+  transform: translateY(-3px);
+}
+
+.card_id {
+  cursor: pointer;
 }
 
 .featured_creature_name {
-  color: white;
   margin: 0;
-  font-size: 1.5em;
+  color: #f5f7fb;
+  font-size: 1.35rem;
+  line-height: 1.2;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 .featured_creature_period {
+  margin: 0.75rem 0 0;
+  color: #8fcfc5;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.featured_creature_summary {
+  margin-top: 0.85rem;
   color: #d7e2ea;
-  margin: 12px 0 0;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: "Lato", sans-serif;
+  line-height: 1.65;
 }
 
 @media (max-width: 600px) {
-  #featured_h2 {
-    font-size: 2.4em;
+  .featured_title {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .Featured_cards {
     grid-template-columns: 1fr;
   }
-}
-
-.featured_creature_summary {
-  margin-top: 12px;
-  font-family: lato, sans-serif;
 }

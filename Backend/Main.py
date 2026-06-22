@@ -16,7 +16,7 @@ key = os.getenv("SUPABASE_KEY")
 service_role_key = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
 client = genai.Client()
 supabase: Client = create_client(url, key)
-supabase2 = create_client(url, service_role_key)
+supabase2: Client = create_client(url, service_role_key)
 
 app = FastAPI()
 WIKI_HEADERS = {
@@ -58,6 +58,11 @@ def get_creature(query: str = ""):
 @app.get("/AISummary")
 def AISummary(query: str = ""):
     return ai_summary(supabase2, client, query)
+
+
+@app.get("/debug/AISummary")
+def DebugAISummary(query: str = ""):
+    return ai_summary(supabase2, client, query, debug=True)
 
 
 

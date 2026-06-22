@@ -5,23 +5,25 @@ import { useNavigate } from "react-router-dom";
 type Creature = {
   id: string;
   Name: string;
-  Scientific_Name: string;
-  Era: string;
-  Period: string;
-  Diet: string;
-  Length: string;
-  Weight: string;
-  Image_URL: string;
-  Summary: string;
-  Family: string;
+  Scientific_Name?: string | null;
+  Era?: string | null;
+  Period?: string | null;
+  Diet?: string | null;
+  Length?: string | null;
+  Weight?: string | null;
+  Image_URL?: string | null;
+  Summary?: string | null;
+  Family?: string | null;
 };
 
 function Related({
   family,
   creatureName,
+  currentCreature,
 }: {
   family: string;
   creatureName: string;
+  currentCreature?: Creature;
 }) {
   const creatureFamily = family;
   const name = creatureName;
@@ -47,7 +49,10 @@ function Related({
   }, [API, creatureFamily, name]);
 
   function handleResultClick(creatureName: string) {
-    navigate(`/creature/${encodeURIComponent(creatureName)}`);
+    navigate(`/creature/${encodeURIComponent(creatureName)}`, {
+      state: { previousCreature: currentCreature ?? null },
+    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   return (
@@ -59,15 +64,22 @@ function Related({
           <div className="related_dino_list">
             {relatedDinos.length > 0
               ? relatedDinos.map((dino) => (
-                  <div key={dino.id} className="related_dino_card">
-                    <h3
-                      id="dino_name_h3"
-                      onClick={() => handleResultClick(dino.Name)}
-                    >
-                      {dino.Name}
-                    </h3>
-                    <p id="dino_family_p">{dino.Family}</p>
-                  </div>
+                <div
+                  key={dino.id}
+                  className="related_dino_card"
+                  onClick={() => handleResultClick(dino.Name)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      handleResultClick(dino.Name);
+                    }
+                  }}
+                >
+                  <h3 id="dino_name_h3">{dino.Name}</h3>
+                  <p id="dino_family_p">{dino.Family}</p>
+                </div>
                 ))
               : null}
           </div>
