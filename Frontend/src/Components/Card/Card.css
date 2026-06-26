@@ -46,6 +46,7 @@
   color: #a8b5c7;
   text-align: center;
   font-size: 0.92rem;
+  padding-bottom: 1.5em;
 }
 
 #creature_title {
@@ -348,4 +349,12 @@
     min-height: 64px;
     padding: 0.75rem 0.65rem;
   }
+}
+
+.RandomDino {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  padding-bottom: 2rem;
 }

@@ -1,0 +1,27 @@
+.random-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  padding-bottom: 2rem;
+}
+
+.random-button {
+  padding: 0.8rem 1.1rem;
+  border: 1px solid rgba(193, 208, 223, 0.12);
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #10212d;
+  background: linear-gradient(180deg, #89ded0 0%, #67c7b7 100%);
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.random-button:hover {
+  transform: translateY(-1px);
+  filter: brightness(0.98);
+}

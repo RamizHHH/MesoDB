@@ -2,6 +2,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "./Card.css";
 import { useEffect, useState } from "react";
 import Related from "../Related/Related";
+import RandomButton from "../RandomButton/RandomButton";
 
 type Creature = {
   id: string;
@@ -279,6 +280,9 @@ function Card() {
           creatureName={creature.Name ?? ""}
           currentCreature={creature}
         />
+      </div>
+      <div className="RandomDino">
+        <RandomButton />
       </div>
       <p id="image_disc">
         All Images Used Are Not My Own and Are Property of Their Respective

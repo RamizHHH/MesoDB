@@ -1,6 +1,7 @@
 import "./Home.css";
 import SearchBar from "../Components/SearchBar/SearchBar";
 import Featured from "../Components/Featured/Featured";
+import RandomButton from "../Components/RandomButton/RandomButton";
 
 function Home() {
   return (
@@ -19,6 +20,9 @@ function Home() {
       </div>
       <div className="featured_div">
         <Featured />
+      </div>
+      <div className="random_button_div">
+        <RandomButton />
       </div>
     </>
   );
