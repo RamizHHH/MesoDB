@@ -8,6 +8,7 @@ import google.genai as genai
 from AI_Summary import *
 from AI_Chat import *
 from RelatedDinos import *
+import random
 
 load_dotenv()
 
@@ -75,6 +76,20 @@ def CreatureAiChat(request: CreatureAIChatRequest):
 @app.get("/RelatedDinos")
 def RelatedDinos(family: str = "", creatureName: str = ""):
     return getRelated(supabase2, family, creatureName)
+
+@app.get("/getRandomCreature")
+def NumofDinos():
+    countAll = (
+        supabase2.table("Dinosaurs").select("*", count="exact", head=True).execute()
+    )
+
+    total = countAll.count
+
+    num = random.randint(0, total)
+
+    response = supabase2.table("Dinosaurs").select("Name").eq("id", num).single().execute()
+    return{"message": response.data}
+    
 
 
 
