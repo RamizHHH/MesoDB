@@ -14,7 +14,6 @@ type Creature = {
   Length?: string | null;
   Weight?: string | null;
   Image_URL?: string | null;
-  Summary?: string | null;
   Family?: string | null;
 };
 
@@ -243,10 +242,10 @@ function Card() {
               <p id="era_p">Family: {creature.Family ?? "Unknown"}</p>
             </div>
           </div>
-          <div className="summary_div">
+          {/* <div className="summary_div">
             <h3 id="summary_h3">Summary</h3>
             <p id="summary_p">{creature.Summary ?? "Summary unavailable."}</p>
-          </div>
+          </div> */}
         </div>
       </div>
 

@@ -6,7 +6,6 @@ from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 import google.genai as genai
 from AI_Summary import *
-from AI_Chat import *
 from RelatedDinos import *
 import random
 
@@ -64,13 +63,6 @@ def AISummary(query: str = ""):
 @app.get("/debug/AISummary")
 def DebugAISummary(query: str = ""):
     return ai_summary(supabase2, client, query, debug=True)
-
-
-
-
-@app.post("/CreatureAIChat")
-def CreatureAiChat(request: CreatureAIChatRequest):
-    return creature_ai_chat(supabase, client, request)
 
 
 @app.get("/RelatedDinos")
