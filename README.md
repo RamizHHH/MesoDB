@@ -9,7 +9,7 @@ The app includes searchable creature pages, featured daily creatures, and AI-ass
 - Search prehistoric creatures by common or scientific name
 - View creature pages with image, taxonomy-style stats, and summaries
 - Daily featured creatures selected from each major period
-- AI summary and AI chat tools
+- AI summary
 - Responsive layout for desktop and mobile
 
 ## Tech Stack
